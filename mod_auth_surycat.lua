@@ -72,7 +72,7 @@ local function getsql(sql, ...)
 end
 
 local function get_password(username)
-	local stmt, err = getsql("SELECT `password` FROM `agentstore_agent` WHERE `username`=? AND `realm`=?", username, module.host);
+	local stmt, err = getsql("SELECT `password` FROM `agentstore_agent` WHERE `name`=? AND `realm`=?", username, module.host);
 	if stmt then
 		for row in stmt:rows(true) do
 			return row.password;
@@ -110,7 +110,7 @@ function provider.get_sasl_handler()
 end
 
 function provider.users()
-	local stmt, err = getsql("SELECT `username` FROM `agentstore_agent` WHERE `realm`=?", module.host);
+	local stmt, err = getsql("SELECT `name` FROM `agentstore_agent` WHERE `realm`=?", module.host);
 	if stmt then
 		local next, state = stmt:rows(true)
 		return function()
