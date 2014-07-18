@@ -80,8 +80,7 @@ local function get_password(username)
 	end
 end
 
-
-provider = {};
+provider = { name = "surycat" };
 
 function provider.test_password(username, password)
 	return password and get_password(username) == password;
@@ -122,5 +121,4 @@ function provider.users()
 	return stmt, err;
 end
 
-
-module:provides("auth", provider);
+module:add_item("auth-provider", provider);
